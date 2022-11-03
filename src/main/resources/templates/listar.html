@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/plantilla  :: head"></head>
+<body>
+
+	<header th:replace="plantilla/plantilla  :: header"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-dark ">
+			<div class="card-header text-warning font-weight-bold N h2 text-center" th:text="${titulo}"></div>
+			<div class="card-body">
+
+
+				<h4 class="card-title " >
+					<a th:href="@{/usuario/form}" class="btn btn-primary">crear Usuario</a>
+				</h4>
+
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							
+							<th>username</th>
+							<th>nombre y apellido</th>
+							<th>email</th>
+							<th>editar</th>
+							<th>eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="text-light" th:each="usuario: ${usuarios}">
+						
+							<td th:text="${usuario.username}"></td>
+							<td th:text="${usuario.nombre}"></td>
+							<td th:text="${usuario.email}"></td>
+							
+							
+							<td><a class="btn btn-primary btn-sm"
+								th:href="@{/usuario/form/} + ${usuario.id}" th:text="'editar'"></a></td>
+							<td><a class="btn btn-danger btn-sm"
+								th:href="@{/usuario/eliminar/} + ${usuario.id}" th:text="'eliminar'"
+								onclick="confirm('Estás seguro que quieres eliminar?');"></a></td>
+						</tr>
+					</tbody>
+
+				</table>
+				
+			</div>
+		</div>
+	</div>
+	<footer th:replace="plantilla/plantilla  :: footer"></footer>
+</body>
+</html>
