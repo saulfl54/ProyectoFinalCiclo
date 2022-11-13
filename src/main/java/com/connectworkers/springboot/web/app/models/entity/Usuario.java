@@ -19,6 +19,7 @@ import javax.validation.constraints.NotEmpty;
 
 
 
+
 @Entity
 @Table(name = "users")
 public class Usuario implements Serializable {
@@ -56,7 +57,7 @@ public class Usuario implements Serializable {
 		createAt=new Date();
 	}
 
-	
+	@Column(name = "foto")
 	private String foto;
 
 

@@ -5,10 +5,10 @@
 
 	<header th:replace="plantilla/plantilla :: header"></header>
 
-	<div class="container py-4">
+	<div class="container py-4" >
 
-		<div class="card bg-dark text-white">
-			<div class="card-header" th:text="${titulo}"></div>
+		<div class="card bg-dark">
+				<div class="card-header text-warning font-weight-bold N h2 text-center" th:text="${titulo}"></div>
 			<div class="card-body">
 
 				<div th:object="${usuario}" th:remove="tag">
@@ -16,9 +16,10 @@
 						<li th:each="err: ${#fields.errors('*')}" th:text="${err}"></li>
 					</ul>
 				</div>
-				<form th:action="@{/usuario/form}" th:object="${usuario}" method="post">
+				<form th:action="@{/usuario/form}" th:object="${usuario}"
+					method="post" enctype="multipart/form-data">
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Nombre</label>
+						<label class="col-sm-3 col-form-label text-light text-right">Nombre</label>
 						<div class="col-sm-6">
 							<input type="text" th:field="*{nombre}" class="form-control"
 								th:errorclass="'form-control alert-danger'" /> <small
@@ -26,8 +27,8 @@
 								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
 						</div>
 					</div>
-						<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Username</label>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label text-light text-right">Username</label>
 						<div class="col-sm-6">
 							<input type="text" th:field="*{username}" class="form-control"
 								th:errorclass="'form-control alert-danger'" /> <small
@@ -36,7 +37,7 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Apellido</label>
+						<label class="col-sm-3 col-form-label text-light text-right">Apellido</label>
 						<div class="col-sm-6">
 							<input type="text" th:field="*{apellido}" class="form-control"
 								th:errorclass="'form-control alert-danger'" /> <small
@@ -45,7 +46,7 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Email</label>
+						<label class="col-sm-3 col-form-label text-light text-right">Email</label>
 						<div class="col-sm-6">
 							<input type="text" th:field="*{email}" class="form-control"
 								th:errorclass="'form-control alert-danger'" /> <small
@@ -53,12 +54,18 @@
 								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
 						</div>
 					</div>
-					
+
 					<div class="form-group row">
+						<label for="file" class="col-sm-3 col-form-label text-light text-right">Foto</label>
 						<div class="col-sm-6">
-							<input type="submit" value="Crear Usuario" class="btn btn-secondary" />
+							<input type="file" name="file" class="form-control" />
 						</div>
 					</div>
+
+					<div class="form-group row">
+							<input type="submit" value="Guardar Usuario"
+								class="btn btn-secondary d-block mx-auto" />
+						</div>
 
 				</form>
 			</div>

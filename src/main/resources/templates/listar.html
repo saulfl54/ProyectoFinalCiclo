@@ -7,34 +7,43 @@
 
 	<div class="container py-4">
 
-		<div class="card bg-dark ">
-			<div class="card-header text-warning font-weight-bold N h2 text-center" th:text="${titulo}"></div>
+		<div class="card bg-dark">
+				<div class="card-header text-warning font-weight-bold N h2 text-center" th:text="${titulo}"></div>
 			<div class="card-body">
 
 
-				<h4 class="card-title " >
-					<a th:href="@{/usuario/form}" class="btn btn-primary">crear Usuario</a>
-				</h4>
+				
+				<div class="container-fluid h-100"> 
+        			<div class="row w-100">
+           				 <div class="col v-center">
+           				 <h4 class="card-title " >
+					<a th:href="@{/usuario/form}" class="btn btn-secondary d-block mx-auto">crear Usuario</a>
+					</h4>
+					</div>
+					</div>
+					</div>
+				
 
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							
-							<th>username</th>
-							<th>nombre y apellido</th>
-							<th>email</th>
-							<th>editar</th>
-							<th>eliminar</th>
+						
+						<th></th>
+							<th class="text-warning">username</th>
+							<th></th>
+							<th></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr class="text-light" th:each="usuario: ${usuarios}">
+							
 						
-							<td th:text="${usuario.username}"></td>
+						
 							<td th:text="${usuario.nombre}"></td>
-							<td th:text="${usuario.email}"></td>
-							
-							
+							<td th:text="${usuario.username}"></td>
+						
+							<td><a class="btn btn-secondary btn-xs" th:href="@{/usuario/ver/} + ${usuario.id}" th:text="ver"></a></td>
 							<td><a class="btn btn-primary btn-sm"
 								th:href="@{/usuario/form/} + ${usuario.id}" th:text="'editar'"></a></td>
 							<td><a class="btn btn-danger btn-sm"
