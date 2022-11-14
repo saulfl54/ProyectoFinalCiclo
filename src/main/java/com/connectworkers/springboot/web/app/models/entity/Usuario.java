@@ -1,15 +1,18 @@
 package com.connectworkers.springboot.web.app.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,12 +21,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 
-
-
 @Entity
-@Table(name = "users")
+@Table(name = "usuarios")
 public class Usuario implements Serializable {
 	
+	public Usuario() {
+		
+		publicaciones = new ArrayList<Publicacion>();
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +52,11 @@ public class Usuario implements Serializable {
 	@Email
 	private String email;
 	
+	@Column(name = "foto")
+	private String foto;
+	
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Publicacion> publicaciones;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_at")
@@ -56,10 +66,6 @@ public class Usuario implements Serializable {
 	public void prePersist() {
 		createAt=new Date();
 	}
-
-	@Column(name = "foto")
-	private String foto;
-
 
 
 	public Long getId() {
@@ -93,8 +99,6 @@ public class Usuario implements Serializable {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-
-
 
 	public String getNombre() {
 		return nombre;
@@ -135,10 +139,28 @@ public class Usuario implements Serializable {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+	
+	
+	public List<Publicacion> getPublicaciones() {
+		return publicaciones;
+	}
 
-	/**
-	 * 
-	 */
+
+	public void setPublicaciones(List<Publicacion> publicaciones) {
+		this.publicaciones = publicaciones;
+	}
+
+
+	public void addPublicacion(Publicacion publicacion) {
+		publicaciones.add(publicacion);
+	}
+	
+
+
+
+
+
+
 	private static final long serialVersionUID = 1L;
 
 }
