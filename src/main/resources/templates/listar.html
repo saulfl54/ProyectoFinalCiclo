@@ -8,55 +8,47 @@
 	<div class="container py-4">
 
 		<div class="card bg-dark">
-				<div class="card-header text-warning font-weight-bold N h2 text-center" th:text="${titulo}"></div>
+			<!----------------------------------TÍTULO ----------------------------------------------->
+
+			<div
+				class="card-header text-warning font-weight-bold N h2 text-center"
+				th:text="${titulo}"></div>
+
+
 			<div class="card-body">
 
+				<!-----------------ENLACE A CREAR USUARIO-------------------------------------->
 
-				
-				<div class="container-fluid h-100"> 
-        			<div class="row w-100">
-           				 <div class="col v-center">
-           				 <h4 class="card-title " >
-					<a th:href="@{/usuario/form}" class="btn btn-secondary d-block mx-auto">crear Usuario</a>
-					</h4>
-					</div>
-					</div>
-					</div>
-				
+				<h4 class="card-title text-center">
+					<a th:href="@{/usuario/form}" class="btn btn-secondary d-block">crear
+						Usuario</a>
+				</h4>
 
-				<table class="table table-striped">
-					<thead>
-						<tr>
-						
-						<th></th>
-							<th class="text-warning">username</th>
-							<th></th>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="text-light" th:each="usuario: ${usuarios}">
-							
-						
-						
-							<td th:text="${usuario.nombre}"></td>
-							<td th:text="${usuario.username}"></td>
-						
-							<td><a class="btn btn-secondary btn-xs" th:href="@{/usuario/ver/} + ${usuario.id}" th:text="ver"></a></td>
-							<td><a class="btn btn-primary btn-sm"
-								th:href="@{/usuario/form/} + ${usuario.id}" th:text="'editar'"></a></td>
-							<td><a class="btn btn-danger btn-sm"
-								th:href="@{/usuario/eliminar/} + ${usuario.id}" th:text="'eliminar'"
-								onclick="confirm('Estás seguro que quieres eliminar?');"></a></td>
-						</tr>
-					</tbody>
+				<!------------- LISTADO DE USUARIOS------------------------------------------>
 
+				<table class="table table-striped my-5">
+
+					<tr class="text-light" th:each="usuario: ${usuarios}">
+						<td th:text="${usuario.nombre}"></td>
+						<td th:text="${usuario.username}"></td>
+						<!---  botones listado -->
+						<td><a class="btn btn-secondary btn-xs"
+							th:href="@{/usuario/ver/} + ${usuario.id}" th:text="ver"></a></td>
+						<td><a class="btn btn-primary btn-sm"
+							th:href="@{/usuario/form/} + ${usuario.id}" th:text="'editar'"></a></td>
+						<td><a class="btn btn-danger btn-sm"
+							th:href="@{/usuario/eliminar/} + ${usuario.id}"
+							th:text="'eliminar'"
+							onclick="return confirm('Estás seguro que deseas eliminar el usuario?');"></a></td>
+					</tr>
 				</table>
-					<nav th:replace="paginator-nav :: paginator"></nav>
 			</div>
+
+			<nav th:replace="paginator-nav :: paginator"></nav>
+
 		</div>
 	</div>
 	<footer th:replace="plantilla/plantilla  :: footer"></footer>
 </body>
+
 </html>

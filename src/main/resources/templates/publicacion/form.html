@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/plantilla :: head"></head>
+<body>
+
+	<header th:replace="plantilla/plantilla :: header"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-dark">
+
+			<!-----------------------------TÍTULO -------------------------------------->
+			<div
+				class="card-header text-warning font-weight-bold N h2 text-center"
+				th:text="${titulo}">
+			</div>
+			<div class="card-body">
+
+				<!-----------------------FORMULARIO--------------------->
+				<form th:action="@{/publicacion/form/}" th:object="${publicacion}"
+					method="post" enctype="multipart/form-data">
+
+					<!-- -----------CAMPO DESHABILITADO NOMBRE CLIENTE----------->
+					<div class="form-group row">
+						<label for="usuario"
+							class="col-sm-3 col-form-label text-light text-right"
+							th:text="'Usuario'"></label>
+						<div class="col-sm-6">
+							<input name="usuario"
+								th:value="${publicacion.usuario.nombre} + ' ' + ${publicacion.usuario.apellido}"
+								class="form-control" disabled='disabled' />
+						</div>
+					</div>
+
+					<!---------------------------TÍTULO PUBLI--------------------------->
+					<div class="form-group row">
+						<label for="titulo"
+							class="col-sm-3 col-form-label text-light text-right"
+							th:text="'Título'"></label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{titulo}" class="form-control"
+								th:errorclass="'form-control is-invalid'" />
+							<div class="invalid-feedback"
+								th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></div>
+						</div>
+					</div>
+
+					<!---------------------------CONTENIDO--------------------------->
+
+					<div class="form-group row">
+						<label for="contenido"
+							class="col-sm-3 col-form-label text-light text-right"
+							th:text="'Contenido'"></label>
+						<div class="col-sm-6">
+							<textarea th:field="*{contenido}" class="form-control"
+								th:errorclass="'form-control is-invalid'"></textarea>
+							<div class="invalid-feedback"
+								th:if="${#fields.hasErrors('contenido')}"
+								th:errors="*{contenido}"></div>
+
+						</div>
+					</div>
+
+					<!---------------------------IMAGEN--------------------------->
+
+					<div class="form-group row">
+						<label for="file"
+							class="col-sm-3 col-form-label text-light text-right" th:text="'Imagen'"></label>
+						<div class="col-sm-6">
+							<input type="file" name="file" class="form-control" />
+						</div>
+					</div>
+					
+					<!-------------------------BOTÓN SUBMIT--------------------------->
+					<div class="form-group row">
+						<input type="submit" th:value="${titulo}"
+							class="btn btn-secondary d-block mx-auto" />
+					</div>
+				</form>
+				<!-----------------------FIN FORMULARIO--------------------->
+				
+				<!--------------------BOTÓN VOLVER ------------------------>
+				<h4 class="card-title">
+
+					<a class="btn btn-light"
+						th:href="@{'/usuario/ver/' + ${publicacion.usuario.id}}"
+						th:text="'&laquo; volver'"></a>
+				</h4>
+
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="plantilla/plantilla :: footer"></footer>
+
+</body>
+</html>

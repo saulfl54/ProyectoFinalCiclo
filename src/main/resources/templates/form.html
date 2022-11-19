@@ -5,17 +5,17 @@
 
 	<header th:replace="plantilla/plantilla :: header"></header>
 
-	<div class="container py-4" >
+	<div class="container py-4">
 
 		<div class="card bg-dark">
-				<div class="card-header text-warning font-weight-bold N h2 text-center" th:text="${titulo}"></div>
+
+			<!-----------------------------TÍTULO -------------------------------------->
+			<div
+				class="card-header text-warning font-weight-bold N h2 text-center"
+				th:text="${titulo}"></div>
 			<div class="card-body">
 
-				<div th:object="${usuario}" th:remove="tag">
-					<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-						<li th:each="err: ${#fields.errors('*')}" th:text="${err}"></li>
-					</ul>
-				</div>
+				<!-----------------------FORMULARIO--------------------->
 				<form th:action="@{/usuario/form}" th:object="${usuario}"
 					method="post" enctype="multipart/form-data">
 					<div class="form-group row">
@@ -27,6 +27,7 @@
 								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
 						</div>
 					</div>
+					<!-- --------------------------USERNAME ---------------------------------->
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label text-light text-right">Username</label>
 						<div class="col-sm-6">
@@ -36,6 +37,7 @@
 								th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
 						</div>
 					</div>
+					<!------------------------------APELLIDO ------------------------------------->
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label text-light text-right">Apellido</label>
 						<div class="col-sm-6">
@@ -45,6 +47,9 @@
 								th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
 						</div>
 					</div>
+
+					<!-- ---------------------------EMAIL------------------------------------>
+
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label text-light text-right">Email</label>
 						<div class="col-sm-6">
@@ -55,19 +60,29 @@
 						</div>
 					</div>
 
+					<!-----------------------------FOTO--------------------------------->
+
 					<div class="form-group row">
-						<label for="file" class="col-sm-3 col-form-label text-light text-right">Foto</label>
+						<label for="file"
+							class="col-sm-3 col-form-label text-light text-right">FOTO</label>
 						<div class="col-sm-6">
 							<input type="file" name="file" class="form-control" />
 						</div>
 					</div>
-
+					<!-------------------------BOTÓN SUBMIT--------------------------->
 					<div class="form-group row">
-							<input type="submit" value="Guardar Usuario"
-								class="btn btn-secondary d-block mx-auto" />
-						</div>
-
+						<input type="submit" value="Guardar Usuario"
+							class="btn btn-secondary d-block mx-auto" />
+					</div>
 				</form>
+				<!-----------------------FIN FORMULARIO--------------------->
+				<!--------------------BOTÓN VOLVER ------------------------>
+				<h4 class="card-title">
+
+					<a class="btn btn-light" th:href="@{'/usuario/listar/'}"
+						th:text="'&laquo; volver'"></a>
+				</h4>
+
 			</div>
 		</div>
 	</div>

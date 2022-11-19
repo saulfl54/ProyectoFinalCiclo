@@ -8,27 +8,85 @@
 	<div class="container py-4">
 
 		<div class="card bg-dark">
-				<div class="card-header text-warning font-weight-bold N h2 text-center" th:text="${titulo}"></div>
+			<!----------------------------------TÍTULO ----------------------------------------------->
+			<div
+				class="card-header text-warning font-weight-bold N h2 text-center"
+				th:text="${titulo}"></div>
+
 			<div class="card-body">
+				<!-- ---------------------------FOTO -------------------------------------------------->
+				
+				<div class="card-title text-center">
+					<img th:if="${usuario.foto != null}" class="img-thumbnail rounded "
+						style="max-width: 35%;" th:src="@{'/uploads/' + ${usuario.foto}}"
+						th:alt="${usuario.foto}" />
+				</div>
 
-				<img th:if="${usuario.foto != null}" class="img-thumbnail rounded float-left"
-					style="max-width: 25%;" th:src="@{'/uploads/' + ${usuario.foto}}"
-					th:alt="${usuario.foto}" />
+				<!---------------------MOSTRA DATOS USUARIO ----------------------------------------------->
 
-
-				<ul class="list-group">
-					<li class="list-group-item list-group-item-dark" th:text="${usuario.username}"></li>
-					<li class="list-group-item list" th:text="${usuario.nombre}"></li>
-					<li class="list-group-item" th:text="${usuario.apellido}"></li>
-					<li class="list-group-item" th:text="${usuario.email}"></li>
+				<ul class="list-group mx-auto" style="max-width: 75%;">
+					<li class="list-group-item list-group-item-dark"
+						th:text="${usuario.username}"></li>
+					<li class="list-group-item list"
+						th:text="'Nombre: ' +${usuario.nombre}"></li>
+					<li class="list-group-item"
+						th:text="'Apellido: '+${usuario.apellido}"></li>
+					<li class="list-group-item" th:text="'Email: '+${usuario.email}"></li>
 					<li class="list-group-item" th:text="${usuario.createAt}"></li>
 				</ul>
 
+				<!-----------------ENLACE A CREAR PUBLICACIÓN-------------------------------------->
+
+
+				<h4 class="card-title text-center my-4">
+					<a th:href="@{'/publicacion/form/' + ${usuario.id}}"
+						class="btn btn-secondary d-block mx-auto">crear Publicación</a>
+				</h4>
+
+				<!----------------------MOSTRAR PUBICACIONES--------------------------------------------------->
+				
+				<div th:if="${#lists.isEmpty(usuario.publicaciones)}"
+					class="alert alert-info my-4"
+					th:text="'No hay publicaciones asignadas en el usuario ' + ${usuario.nombre}"></div>
+
+				<table th:if="${not #lists.isEmpty(usuario.publicaciones)}"
+					class="table table-striped my-4 ">
+					<thead class="thead-dark">
+						<tr>
+							<th class="text-warning">Fecha</th>
+							<th class="text-warning">Título</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody class="text-light">
+						<tr th:each="publicacion : ${usuario.publicaciones}">
+							<td th:text="${publicacion.createAt}"></td>
+							<td th:text="${publicacion.titulo}"></td>
+							<td><a class="btn btn-primary btn-sm"
+								th:href="@{'/publicacion/ver/' + ${publicacion.id}}"
+								th:text="'detalle'"></a></td>
+							<td><a class="btn btn-danger btn-sm"
+								th:href="@{'/publicacion/eliminar/' + ${publicacion.id}}"
+								th:text="'eliminar'"
+								onclick="return confirm('Estás seguro que deseas eliminar el usuario?');"></a></td>
+
+						</tr>
+					</tbody>
+
+				</table>
+
+				<!-------------------------BOTÓN VOLVER ------------------------------------------------------->
+				<h4 class="card-title">
+					<a class="btn btn-light" th:href="@{'/usuario/listar/'}"
+						th:text="'&laquo; volver'"></a>
+				</h4>
 			</div>
 		</div>
 
 	</div>
 
 	<footer th:replace="plantilla/plantilla :: footer"></footer>
+
 </body>
 </html>

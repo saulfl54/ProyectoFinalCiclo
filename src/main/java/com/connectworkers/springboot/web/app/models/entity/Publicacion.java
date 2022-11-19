@@ -18,6 +18,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 
 
 
@@ -33,9 +34,10 @@ public class Publicacion implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	@NotEmpty
 	private String titulo;
-
+	@NotEmpty
 	private String contenido;
 
 	@Column(name = "imagen")
@@ -110,5 +112,14 @@ public class Publicacion implements Serializable {
 		this.createAt = createAt;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	private static final long serialVersionUID = 1L;
+
 }

@@ -57,6 +57,9 @@ public class Usuario implements Serializable {
 	
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Publicacion> publicaciones;
+	
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Comentario> comentarios;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_at")
@@ -155,9 +158,6 @@ public class Usuario implements Serializable {
 		publicaciones.add(publicacion);
 	}
 	
-
-
-
 
 
 

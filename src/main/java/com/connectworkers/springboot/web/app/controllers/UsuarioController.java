@@ -158,6 +158,7 @@ public class UsuarioController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"")
 				.body(recurso);
 	}
+	
 
 	@GetMapping(value = "/ver/{id}")
 	public String ver(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
@@ -169,7 +170,7 @@ public class UsuarioController {
 		}
 
 		model.put("usuario", usuario);
-		model.put("titulo", "Detalle usuario: " + usuario.getNombre());
+		model.put("titulo", "Perfil de " + usuario.getUsername());
 		return "ver";
 	}
 }

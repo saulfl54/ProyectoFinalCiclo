@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/plantilla :: head"></head>
+<body>
+
+	<header th:replace="plantilla/plantilla :: header"></header>
+
+	<div class="container py-4">
+
+
+		<div class="card bg-dark">
+			<!----------------------------------TÍTULO ----------------------------------------------->
+			<div
+				class="card-header text-warning font-weight-bold N h2 text-center"
+				th:text="${titulo}">
+				<p></p>
+			</div>
+
+			<div class="card-body text-center">
+				<!-------------------------------IMAGEN ---------------------------------------------->
+
+				<img th:if="${publicacion.imagen != null}" style="max-width: 90%;"
+					th:src="@{'/uploads/' + ${publicacion.imagen}}"
+					th:alt="${publicacion.imagen}" />
+			</div>
+
+			<!--------------------------------- CONTENIDO -------------------------------------------->
+
+			<div class="card-body">
+				<ul class="list-group">
+					<li class="list-group-item list-group-item-secondary"
+						th:text="${publicacion.createAt}"></li>
+					<li class="list-group-item"><p class="card-text"
+							th:text="${publicacion.contenido}"
+							th:if="${not #strings.isEmpty(publicacion.contenido)}"></p>
+						<h4 class="card-title"
+							th:if="${#strings.isEmpty(publicacion.contenido)}"
+							th:text="'No tiene Contenido'"></h4></li>
+				</ul>
+
+				<!------------------------------ COMENTARIOS -------------------------------------------->
+
+				<div class="alert alert-info my-4"
+					th:if="${#lists.isEmpty(publicacion.comentarios)}"
+					th:text="'No hay comentarios en la publicacion '"></div>
+
+				<div th:if="${not #lists.isEmpty(publicacion.comentarios)}">
+					<div class="card-body bg-light">
+
+						<div th:each="comentario: ${publicacion.comentarios}"
+							class="bg-light">
+							<div class="card bg-light my-3 mx-3">
+								<strong class="px-3 pt-2"
+									th:text="${comentario.usuario.username} + ': '"></strong>
+								<p class="px-3" th:text="${comentario.contenido}"></p>
+								<p class="text-right px-4" th:text="${comentario.createAt}"></p>
+							</div>
+
+						</div>
+<!--  
+						<form th:action="@{/publicacion/form/}" th:object="${publicacion}"
+							method="post">
+							
+
+
+							
+
+							<div class="col-sm-8">
+								<textarea th:field="*{contenido}" class="form-control"
+									th:errorclass="'form-control is-invalid'" cols="40" rows="5"></textarea>
+								<div class="invalid-feedback"
+									th:if="${#fields.hasErrors('contenido')}"
+									th:errors="*{contenido}"></div>
+
+							</div>
+
+						
+							<div class="form-group">
+								<input type="submit" th:value="Comentar"
+									class="btn btn-secondary mx-3 my-1" />
+							</div>
+						</form>
+
+					</div>
+					-->
+				</div>
+
+
+
+				<!-------------------------BOTÓN VOLVER ------------------------------------------------------->
+
+				<h4 class="card-title">
+
+					<a class="btn btn-light btn-xs my-5"
+						th:href="@{'/usuario/ver/' + ${publicacion.usuario.id}}"
+						th:text="'&laquo; volver'"></a>
+				</h4>
+
+			</div>
+		</div>
+
+	</div>
+	<footer th:replace="plantilla/plantilla :: footer"></footer>
+</body>
+</html>
