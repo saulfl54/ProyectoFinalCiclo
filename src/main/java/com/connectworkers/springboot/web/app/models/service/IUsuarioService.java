@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import com.connectworkers.springboot.web.app.models.entity.Comentario;
 import com.connectworkers.springboot.web.app.models.entity.Publicacion;
 import com.connectworkers.springboot.web.app.models.entity.Usuario;
 
@@ -25,6 +27,10 @@ public interface IUsuarioService {
 	public Publicacion findPublicacionById(Long id);
 
 	void deleteFactura(Long id);
+	
+	public Page<Publicacion> findAllPublicaciones(Pageable pageable);
+	
+	public void saveComentario(Comentario comentario);
 	
 	
 	

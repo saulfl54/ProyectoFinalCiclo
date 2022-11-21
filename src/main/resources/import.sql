@@ -32,6 +32,20 @@ INSERT INTO publicaciones (usuario_id, titulo ,contenido, create_at) VALUES (1,'
 INSERT INTO comentarios (contenido,create_at,publicacion_id,usuario_id) VALUES ('primer comentario','2022-11-18',1,2);
 INSERT INTO comentarios (contenido,create_at,publicacion_id,usuario_id) VALUES ('segundo comentario','2022-11-18',1,3);
 
+INSERT INTO publicaciones (usuario_id, titulo ,contenido, create_at) VALUES (2,'Esta es la segunda publicación','Notica de última hora, la reunión del sábado por la mañana se suspende, día libre para todos!!!','2022-11-18');
+INSERT INTO comentarios (contenido,create_at,publicacion_id,usuario_id) VALUES ('primer comentario','2022-11-18',2,1);
+INSERT INTO comentarios (contenido,create_at,publicacion_id,usuario_id) VALUES ('segundo comentario','2022-11-18',2,1);
+
+INSERT INTO publicaciones (usuario_id, titulo ,contenido, create_at) VALUES (2,'Esta es la tercera publicación','Notica de última hora, la reunión del sábado por la mañana se suspende, día libre para todos!!!','2022-11-18');
+INSERT INTO comentarios (contenido,create_at,publicacion_id,usuario_id) VALUES ('primer comentario','2022-11-18',3,4);
+INSERT INTO comentarios (contenido,create_at,publicacion_id,usuario_id) VALUES ('segundo comentario','2022-11-18',3,3);
+INSERT INTO comentarios (contenido,create_at,publicacion_id,usuario_id) VALUES ('primer comentario','2022-11-18',3,5);
+INSERT INTO comentarios (contenido,create_at,publicacion_id,usuario_id) VALUES ('segundo comentario','2022-11-18',3,4);
+
+INSERT INTO publicaciones (usuario_id, titulo ,contenido, create_at) VALUES (2,'Esta es la cuarta publicación','Notica de última hora, la reunión del sábado por la mañana se suspende, día libre para todos!!!','2022-11-18');
+INSERT INTO comentarios (contenido,create_at,publicacion_id,usuario_id) VALUES ('primer comentario','2022-11-18',4,1);
+INSERT INTO comentarios (contenido,create_at,publicacion_id,usuario_id) VALUES ('segundo comentario','2022-11-18',3,2);
+
 
 
 

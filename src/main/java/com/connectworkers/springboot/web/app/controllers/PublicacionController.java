@@ -1,16 +1,21 @@
 package com.connectworkers.springboot.web.app.controllers;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +29,7 @@ import com.connectworkers.springboot.web.app.models.entity.Publicacion;
 import com.connectworkers.springboot.web.app.models.entity.Usuario;
 import com.connectworkers.springboot.web.app.models.service.ICargarArchivoService;
 import com.connectworkers.springboot.web.app.models.service.IUsuarioService;
+import com.connectworkers.springboot.web.app.util.Paginador;
 
 @Controller
 @RequestMapping("/publicacion")
@@ -35,6 +41,22 @@ public class PublicacionController {
 
 	@Autowired
 	private ICargarArchivoService cargarArchivoService;
+	
+	@RequestMapping(value = "/listar", method = RequestMethod.GET)
+	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+		int size = 10;// cantidad a mostrar por pagina
+		Pageable pageRequest = PageRequest.of(page, size);
+
+		Page<Publicacion> publicaciones = usuarioService.findAllPublicaciones(pageRequest);
+		// url,Page<Publicacion>
+		Paginador<Publicacion> pageRender = new Paginador<>("/home", publicaciones);
+
+		model.addAttribute("titulo", "Listado de Publicaciones");
+		model.addAttribute("page", pageRender);
+		model.addAttribute("publicaciones", publicaciones);
+		
+		return "publicacion/listar";
+	}
 
 	@GetMapping("/form/{usuarioId}")
 	public String crear(@PathVariable(value = "usuarioId") Long usuarioId, Map<String, Object> model,
@@ -124,6 +146,32 @@ public class PublicacionController {
 		
 		return "redirect:/listar";
 	}
+	
+	
+	
+	@PostMapping("/comentar/{publicacionId}")
+	public String comentar(Comentario comentario,@PathVariable(value = "publicacionId") Long publicacionId, Map<String, Object> model,
+			RedirectAttributes flash) {
+
+		Publicacion publicacion = usuarioService.findPublicacionById(publicacionId);
+
+		if (publicacion == null) {
+			flash.addFlashAttribute("error", "El usuario no existe en la base de datos");
+			return "redirect:/listar";
+		}
+
+	
+		comentario.setUsuario(usuarioService.findOne((long) 1));
+		publicacion.addComentario(comentario);
+
+		usuarioService.saveComentario(comentario);
+
+		model.put("publicacion", publicacion);
+		model.put("titulo", publicacion.getTitulo());
+
+		return "redirect:/publicacion/ver/{publicacionId}";
+	}
+	
 	
 
 }

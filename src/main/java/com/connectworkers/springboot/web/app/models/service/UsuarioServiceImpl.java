@@ -8,8 +8,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.connectworkers.springboot.web.app.models.dao.IComentarioDao;
 import com.connectworkers.springboot.web.app.models.dao.IPublicacionDao;
 import com.connectworkers.springboot.web.app.models.dao.IUsuarioDao;
+import com.connectworkers.springboot.web.app.models.entity.Comentario;
 import com.connectworkers.springboot.web.app.models.entity.Publicacion;
 import com.connectworkers.springboot.web.app.models.entity.Usuario;
 
@@ -21,6 +23,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Autowired
 	private IPublicacionDao publicacionDao;
+	
+	@Autowired
+	private IComentarioDao comentarioDao;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -71,6 +76,18 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	@Transactional
 	public void deleteFactura(Long id) {
 		publicacionDao.deleteById(id);
+	}
+
+	@Override
+	@Transactional
+	public void saveComentario(Comentario comentario) {
+		comentarioDao.save(comentario);	
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Publicacion> findAllPublicaciones(Pageable pageable) {
+		return publicacionDao.findAll(pageable);
 	}
 
 }

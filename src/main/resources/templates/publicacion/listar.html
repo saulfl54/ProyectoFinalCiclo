@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/plantilla :: head"></head>
+<body>
+
+	<header th:replace="plantilla/plantilla :: header"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-dark text-white">
+				<!----------------------------------TÍTULO ----------------------------------------------->
+
+			<div
+				class="card-header text-warning font-weight-bold N h2 text-center"
+				th:text="${titulo}"></div>
+				
+			<div class="card-body">
+			
+			<!-----------------ENLACE A CREAR PUBLICACIÓN-------------------------------------->
+
+				<h4 class="card-title text-center">
+					<a th:href="@{/publicacion/form}" class="btn btn-secondary d-block">crear
+						Publicación</a>
+				</h4>
+				
+				<!------------- LISTADO DE PUBLICACIONES------------------------------------------>
+
+				<table class="table table-striped my-5">
+
+					<tr class="text-light" th:each="publicacion: ${publicaciones}">
+						<td th:text="${publicacion.titulo}"></td>
+						<td th:text="${publicacion.contenido}"></td>
+						<!---  botones listado -->
+						<td><a class="btn btn-secondary btn-xs"
+							th:href="@{/publicacion/ver/} + ${publicacion.id}" th:text="ver"></a></td>
+						<td><a class="btn btn-primary btn-sm"
+							th:href="@{/publicacion/form/} + ${publicacion.id}" th:text="'editar'"></a></td>
+						<td><a class="btn btn-danger btn-sm"
+							th:href="@{/publicacion/eliminar/} + ${publicacion.id}"
+							th:text="'eliminar'"
+							onclick="return confirm('Estás seguro que deseas eliminar la publicación?');"></a></td>
+						
+					</tr>
+				</table>
+				
+			</div>
+			
+				<nav th:replace="paginator-nav :: paginator"></nav>
+		</div>
+	</div>
+	<footer th:replace="plantilla/plantilla :: footer"></footer>
+</body>
